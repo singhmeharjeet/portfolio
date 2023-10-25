@@ -1,4 +1,19 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+	images: {
+		domains: ["images.unsplash.com", "https://github.com"],
+	},
+	webpack: (config, options) => {
+		config.module.rules.push({
+			test: /\.pdf/,
+			type: "asset/resource",
+			generator: {
+				filename: "static/Resume_Meharjeet_Singh[ext]",
+			},
+		});
 
-module.exports = nextConfig
+		return config;
+	},
+};
+
+module.exports = nextConfig;
