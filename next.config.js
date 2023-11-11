@@ -1,7 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	images: {
-		domains: ["images.unsplash.com", "https://github.com"],
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "github.com",
+			},
+		],
+		domains: ["images.unsplash.com", "https://github.com/"],
 	},
 	webpack: (config, options) => {
 		config.module.rules.push({

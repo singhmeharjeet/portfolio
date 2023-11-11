@@ -7,11 +7,20 @@ import { motion } from "framer-motion";
 // @ts-ignore
 import Resume from "@/public/resume.pdf";
 
-import { ArrowUpRight, Book, MapPin, TrendingUp } from "lucide-react";
+import {
+	ArrowUpRight,
+	Book,
+	GithubIcon,
+	InstagramIcon,
+	LucideLinkedin,
+	MapPin,
+	TrendingUp,
+} from "lucide-react";
 import { ThemeProvider } from "next-themes";
 import Link from "next/link";
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
+import Image from "next/image";
 
 export default function Home() {
 	return (
@@ -33,7 +42,33 @@ function Body() {
 			<div className="bg-background">
 				<section className="py-10 md:py-16">
 					<div className="container max-w-screen-xl mx-auto px-4">
-						<nav className="flex w-full items-center justify-end rounded px-4 py-2">
+						<nav className="flex w-full items-center justify-between rounded px-4 py-2">
+							<div className="flex gap-2">
+								<Button variant="outline" size="icon" asChild>
+									<Link href="https://www.linkedin.com/in/meharjeet-singh-7a870919b/">
+										<LucideLinkedin className="w-6 h-6" />
+										<span className="sr-only">
+											Linkedin Link
+										</span>
+									</Link>
+								</Button>
+								<Button variant="outline" size="icon" asChild>
+									<Link href="https://www.github.com/singhmeharjeet">
+										<GithubIcon className="w-6 h-6" />
+										<span className="sr-only">
+											Github Link
+										</span>
+									</Link>
+								</Button>
+								<Button variant="outline" size="icon" asChild>
+									<Link href="https://www.instagram.com/meharjeetsingh">
+										<InstagramIcon className="w-6 h-6" />
+										<span className="sr-only">
+											Instagram Link
+										</span>
+									</Link>
+								</Button>
+							</div>
 							<div className="flex gap-2">
 								<ModeToggle />
 								<Button
@@ -50,7 +85,9 @@ function Body() {
 
 						<div className="text-center mt-12">
 							<div className="flex justify-center mb-16">
-								<img
+								<Image
+									width="128"
+									height="128"
 									className="w-32 h-32 md:w-40 md:h-40 rounded-full"
 									src="https://github.com/singhmeharjeet.png"
 									alt="Image"
@@ -190,7 +227,7 @@ function Body() {
 				<section className="py-10 md:py-16">
 					<div className="container max-w-screen-xl mx-auto px-4">
 						<h1 className="font-medium text-3xl md:text-4xl mb-5">
-							Recomendations
+							Recommendations
 						</h1>
 
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
