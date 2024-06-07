@@ -5,7 +5,7 @@ import { ContactForm } from "@/components/ContactForm";
 import { motion } from "framer-motion";
 
 // @ts-expect-error
-import Resume from "@/public/resume.pdf";
+import Resume from "@/public/Resume.pdf";
 
 import {
 	ArrowUpRight,
