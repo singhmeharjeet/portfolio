@@ -1,11 +1,13 @@
 "use client";
+import { ContactForm } from "@/components/ContactForm";
 import { ModeToggle } from "@/components/ModeToggle";
 import { Button } from "@/components/ui/button";
-import { ContactForm } from "@/components/ContactForm";
 import { motion } from "framer-motion";
 
 // @ts-expect-error
 import Resume from "@/public/Resume.pdf";
+
+import { Toaster } from "@/components/ui/toaster";
 
 import {
 	ArrowUpRight,
@@ -17,10 +19,9 @@ import {
 	TrendingUp,
 } from "lucide-react";
 import { ThemeProvider } from "next-themes";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { Toaster } from "@/components/ui/toaster";
-import Image from "next/image";
 
 export default function Home() {
 	return (
