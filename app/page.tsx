@@ -4,8 +4,8 @@ import { ModeToggle } from "@/components/ModeToggle";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
-// @ts-expect-error
-import Resume from "@/public/Resume.pdf";
+// @ts-ignore
+import Resume from "@/../public/resume.pdf";
 
 import { Toaster } from "@/components/ui/toaster";
 
