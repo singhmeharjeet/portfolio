@@ -10,7 +10,7 @@ import {
 } from "./ui/card";
 import { Skeleton } from "./ui/skeleton";
 import Link from "next/link";
-import { Suspense, useEffect, useState } from "react";
+import { ReactNode, Suspense, useEffect, useState } from "react";
 
 interface LinkPreviewType {
 	title: string;
@@ -48,7 +48,7 @@ const fetchData = async (url: string): Promise<LinkPreviewType | null> => {
 	}
 };
 
-function LinkPreview({ url }: { url: string }) {
+function LinkPreview({ url, badge }: { url: string; badge?: ReactNode[] }) {
 	const [previewData, setPreviewData] = useState<LinkPreviewType | null>(
 		null
 	);
@@ -70,7 +70,7 @@ function LinkPreview({ url }: { url: string }) {
 
 	return (
 		<Suspense fallback={<LinkPreviewSkeleton />}>
-			<LinkPreviewSub url={url} preview={previewData} />
+			<LinkPreviewSub url={url} preview={previewData} badge={badge} />
 		</Suspense>
 	);
 }
@@ -78,12 +78,17 @@ function LinkPreview({ url }: { url: string }) {
 async function LinkPreviewSub({
 	url,
 	preview,
+	badge,
 }: {
 	url: string;
 	preview: LinkPreviewType | null;
+	badge?: ReactNode[];
 }) {
 	return (
-		<Card style={{ cursor: "pointer" }} className="min-h-[300px]">
+		<Card
+			style={{ cursor: "pointer" }}
+			className="min-h-[300px] hover:bg-card/50"
+		>
 			<Link
 				href={url}
 				target="_blank"
@@ -94,6 +99,9 @@ async function LinkPreviewSub({
 					<CardDescription className="line-clamp-3">
 						{preview?.description}
 					</CardDescription>
+					<div className="flex gap-2 flex-wrap">
+						{badge?.length && badge.map((b) => b)}
+					</div>
 				</CardHeader>
 				{preview?.image && (
 					<CardContent className="size-fit overflow-hidden">

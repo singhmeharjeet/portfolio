@@ -14,6 +14,8 @@ import { ThemeProvider } from "next-themes";
 import Image from "next/image";
 import ProjectSection from "@/components/ProjectSection";
 
+import meharImage from "@/../public/mehar.jpg";
+
 export default function Home() {
 	return (
 		<ThemeProvider
@@ -37,15 +39,11 @@ function Body() {
 						<Nav />
 
 						<div className="text-center mt-12">
-							<div className="flex justify-center mb-16">
-								<Image
-									width="128"
-									height="128"
-									className="w-32 h-32 md:w-40 md:h-40 rounded-full"
-									src="https://github.com/singhmeharjeet.png"
-									alt="Image"
-								/>
-							</div>
+							<Image
+								className="object-contain h-52 w-fit shadow-2xl rounded mx-auto mb-12"
+								src={meharImage}
+								alt="Image"
+							/>
 
 							<h6 className="font-medium text-foreground text-lg md:text-2xl uppercase mb-8">
 								Meharjeet Singh
