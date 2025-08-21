@@ -1,14 +1,14 @@
-import { CardHeader, CardTitle, CardContent, Card } from "./ui/card";
-import Link from "next/link";
+import { CardHeader, CardTitle, CardContent, Card } from './ui/card'
+import Link from 'next/link'
 
 export default function GithubCard({
 	url,
 	title,
 	description,
 }: {
-	url: string;
-	title: string;
-	description: string;
+	url: string
+	title: string
+	description: string
 }) {
 	return (
 		<Link href={url}>
@@ -19,5 +19,5 @@ export default function GithubCard({
 				<CardContent>{description}</CardContent>
 			</Card>
 		</Link>
-	);
+	)
 }

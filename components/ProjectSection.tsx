@@ -1,13 +1,13 @@
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import React, { ReactNode } from "react";
-import LinkPreview from "./LinkPreview";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Link from "next/link";
-import GithubCard from "./GithubCard";
-import { Badge } from "./ui/badge";
-import { Wrench } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
+import React, { ReactNode, Suspense } from 'react'
+import LinkPreview from './LinkPreview'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import Link from 'next/link'
+import GithubCard from './GithubCard'
+import { Badge } from './ui/badge'
+import { Wrench } from 'lucide-react'
 
-type Props = {};
+type Props = {}
 
 const ProjectSection = (props: Props) => {
 	return (
@@ -18,36 +18,38 @@ const ProjectSection = (props: Props) => {
 				</h1>
 				<Tabs defaultValue="web" className="space-y-4">
 					<TabsList>
-						<TabsTrigger value={"web"}>Web</TabsTrigger>
-						<TabsTrigger value={"cpp"}>C++</TabsTrigger>
-						<TabsTrigger value={"other"}>Other</TabsTrigger>
+						<TabsTrigger value={'web'}>Web</TabsTrigger>
+						<TabsTrigger value={'cpp'}>C++</TabsTrigger>
+						<TabsTrigger value={'other'}>Other</TabsTrigger>
 					</TabsList>
 					<TabsContent
 						value="web"
 						tabIndex={-1}
 						className="grid sm:grid-cols-3 gap-[2vw]"
 					>
-						<LinkPreview
-							url="https://makerbros.vercel.app/"
-							badge={Array.of<ReactNode>(
-								<Badge color="bg-white flex w-fit text-sm items-center justify-center">
-									<Wrench className="h-3 w-auto mr-2" />
-									comming soon
-								</Badge>
-							)}
-						/>
-						<LinkPreview
-							url="https://campos2.vercel.app/"
-							badge={Array.of<ReactNode>(
-								<Badge color="bg-white flex w-fit text-sm items-center justify-center">
-									<Wrench className="h-3 w-auto mr-2" />
-									comming soon
-								</Badge>
-							)}
-						/>
-						<LinkPreview url="https://bbp-gamma.vercel.app/" />
-						<LinkPreview url="https://learnsphere.cloud/" />
-						<LinkPreview url="https://happimind.vercel.app/" />
+						<Suspense>
+							<LinkPreview
+								url="https://makerbros.co"
+								// badge={Array.of<ReactNode>(
+								// 	<Badge color="bg-white flex w-fit text-sm items-center justify-center">
+								// 		<Wrench className="h-3 w-auto mr-2" />
+								// 		comming soon
+								// 	</Badge>
+								// )}
+							/>
+							<LinkPreview
+								url="https://campos.studio/"
+								badge={Array.of<ReactNode>(
+									<Badge color="bg-white flex w-fit text-sm items-center justify-center">
+										<Wrench className="h-3 w-auto mr-2" />
+										comming soon
+									</Badge>
+								)}
+							/>
+							<LinkPreview url="https://bahrabualphotography.com/" />
+							<LinkPreview url="https://learnsphere.cloud/" />
+							<LinkPreview url="https://happimind.vercel.app/" />
+						</Suspense>
 					</TabsContent>
 					<TabsContent
 						value="cpp"
@@ -85,7 +87,7 @@ const ProjectSection = (props: Props) => {
 				</Tabs>
 			</div>
 		</section>
-	);
-};
+	)
+}
 
-export default ProjectSection;
+export default ProjectSection

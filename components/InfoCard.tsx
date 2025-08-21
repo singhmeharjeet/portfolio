@@ -1,20 +1,20 @@
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion'
 
 export default function Card({
 	title,
 	description,
 	icon,
 }: {
-	title: string;
-	description: string;
-	icon: string | React.ReactNode;
+	title: string
+	description: string
+	icon: string | React.ReactNode
 }) {
 	return (
 		<motion.div
-			initial={{ opacity: 0, translateY: "10px" }}
+			initial={{ opacity: 0, translateY: '10px' }}
 			whileInView={{
 				opacity: 1,
-				translateY: "-10px",
+				translateY: '-10px',
 				transition: { duration: 0.5 },
 			}}
 		>
@@ -32,5 +32,5 @@ export default function Card({
 				</p>
 			</div>
 		</motion.div>
-	);
+	)
 }

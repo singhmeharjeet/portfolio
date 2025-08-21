@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
-import Link from "next/link";
-import { Button } from "./ui/button";
+import { motion } from 'framer-motion'
+import { ArrowUpRight } from 'lucide-react'
+import Link from 'next/link'
+import { Button } from './ui/button'
 
 export default function BulletPoint({
 	index,
@@ -9,10 +9,10 @@ export default function BulletPoint({
 	description,
 	link,
 }: {
-	index: number;
-	title: string;
-	description: string;
-	link: string;
+	index: number
+	title: string
+	description: string
+	link: string
 }) {
 	return (
 		<motion.div
@@ -22,12 +22,12 @@ export default function BulletPoint({
 				x: 100,
 			}}
 			whileInView={{
-				display: "flex",
+				display: 'flex',
 				opacity: 1,
 				x: 0,
 				transition: {
 					duration: 0.5,
-					ease: "easeInOut",
+					ease: 'easeInOut',
 				},
 			}}
 		>
@@ -60,5 +60,5 @@ export default function BulletPoint({
 				</div>
 			</div>
 		</motion.div>
-	);
+	)
 }

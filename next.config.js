@@ -3,23 +3,23 @@ const nextConfig = {
 	images: {
 		remotePatterns: [
 			{
-				protocol: "https",
-				hostname: "*",
+				protocol: 'https',
+				hostname: '*',
 			},
 		],
-		domains: ["images.unsplash.com", "https://github.com/"],
+		domains: ['images.unsplash.com', 'https://github.com/'],
 	},
 	webpack: (config, options) => {
 		config.module.rules.push({
 			test: /\.pdf/,
-			type: "asset/resource",
+			type: 'asset/resource',
 			generator: {
-				filename: "static/Resume_Meharjeet_Singh[ext]",
+				filename: 'static/Resume_Meharjeet_Singh[ext]',
 			},
-		});
+		})
 
-		return config;
+		return config
 	},
-};
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

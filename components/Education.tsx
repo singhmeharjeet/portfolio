@@ -1,5 +1,5 @@
-import { Link, ArrowUpRight } from "lucide-react";
-import { Button } from "./ui/button";
+import { Link, ArrowUpRight } from 'lucide-react'
+import { Button } from './ui/button'
 
 export default function EducationCard({
 	year,
@@ -7,10 +7,10 @@ export default function EducationCard({
 	description,
 	link,
 }: {
-	year: string;
-	title: string;
-	description: string;
-	link: string;
+	year: string
+	title: string
+	description: string
+	link: string
 }) {
 	return (
 		<div className="bg-secondary px-8 py-10 rounded-md">
@@ -32,5 +32,5 @@ export default function EducationCard({
 				</Button>
 			</div>
 		</div>
-	);
+	)
 }

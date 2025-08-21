@@ -1,6 +1,6 @@
 export interface ThemeContextInterface {
-	theme: boolean;
-	toggleTheme(): void;
+	theme: boolean
+	toggleTheme(): void
 }
 
-declare module "*.pdf";
+declare module '*.pdf'

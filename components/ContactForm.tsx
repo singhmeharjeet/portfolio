@@ -1,25 +1,25 @@
-"use client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "./ui/input";
-import { useForm, SubmitHandler } from "react-hook-form";
-import z from "zod";
-import { Button } from "./ui/button";
-import { Label } from "./ui/label";
-import { Textarea } from "./ui/textarea";
-import { toast, useToast } from "./ui/use-toast";
+'use client'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Input } from './ui/input'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import z from 'zod'
+import { Button } from './ui/button'
+import { Label } from './ui/label'
+import { Textarea } from './ui/textarea'
+import { toast, useToast } from './ui/use-toast'
 
 const contactFormSchema = z.object({
 	email: z.string().email(),
-	subject: z.string().max(100, { message: "Word Limit is 100" }).optional(),
+	subject: z.string().max(100, { message: 'Word Limit is 100' }).optional(),
 	message: z
 		.string()
-		.min(1, { message: "Message is required" })
-		.max(1000, { message: "Word Limit is 1000" }),
-});
-type Inputs = z.infer<typeof contactFormSchema>;
+		.min(1, { message: 'Message is required' })
+		.max(1000, { message: 'Word Limit is 1000' }),
+})
+type Inputs = z.infer<typeof contactFormSchema>
 
 export function ContactForm() {
-	const { toast } = useToast();
+	const { toast } = useToast()
 
 	const {
 		register,
@@ -28,28 +28,28 @@ export function ContactForm() {
 		formState: { errors },
 	} = useForm<Inputs>({
 		resolver: zodResolver(contactFormSchema),
-	});
+	})
 
 	const onSubmit: SubmitHandler<Inputs> = async (data) => {
-		const response = await fetch("/api/send", {
-			method: "POST",
+		const response = await fetch('/api/send', {
+			method: 'POST',
 			body: JSON.stringify(data),
-		});
+		})
 		if (!response.ok) {
 			toast({
-				variant: "destructive",
-				title: "Error",
-				description: "Something went wrong. Please try again later.",
-			});
-			return;
+				variant: 'destructive',
+				title: 'Error',
+				description: 'Something went wrong. Please try again later.',
+			})
+			return
 		}
 
-		reset();
+		reset()
 		toast({
-			title: "Message sent!",
+			title: 'Message sent!',
 			description: "I'll get back to you as soon as possible.",
-		});
-	};
+		})
+	}
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
@@ -58,7 +58,7 @@ export function ContactForm() {
 					Your email
 				</Label>
 				<Input
-					{...register("email")}
+					{...register('email')}
 					name="email"
 					type="email"
 					required
@@ -78,7 +78,7 @@ export function ContactForm() {
 					Subject
 				</Label>
 				<Input
-					{...register("subject")}
+					{...register('subject')}
 					autoCapitalize="on"
 					type="text"
 					id="subject"
@@ -87,7 +87,7 @@ export function ContactForm() {
 				/>
 				{errors.subject && (
 					<p className="text-xs italic text-red-500 mt-2">
-						{" "}
+						{' '}
 						{errors.subject?.message}
 					</p>
 				)}
@@ -97,7 +97,7 @@ export function ContactForm() {
 					Your message
 				</Label>
 				<Textarea
-					{...register("message")}
+					{...register('message')}
 					id="message"
 					rows={6}
 					className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50  shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -116,5 +116,5 @@ export function ContactForm() {
 				Send message
 			</Button>
 		</form>
-	);
+	)
 }

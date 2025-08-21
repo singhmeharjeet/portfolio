@@ -1,29 +1,49 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import type React from 'react'
+import type { Metadata } from 'next'
+import { Geist, Manrope } from 'next/font/google'
+import { ThemeProvider } from 'next-themes'
+import './globals.css'
 
-const inter = Inter({ subsets: ["latin"] });
+const geist = Geist({
+	subsets: ['latin'],
+	display: 'swap',
+	variable: '--font-geist',
+})
+
+const manrope = Manrope({
+	subsets: ['latin'],
+	display: 'swap',
+	variable: '--font-manrope',
+})
 
 export const metadata: Metadata = {
-	title: "Meharjeet Singh's Portfolio",
-	description: "Meharjeet Singh's Portfolio",
-};
+	title: 'Meharjeet Singh - Software Developer Portfolio',
+	description:
+		'Full-stack developer specializing in web development, mobile apps, AI, and systems programming',
+	generator: 'v0.app',
+}
 
 export default function RootLayout({
 	children,
-}: {
-	children: React.ReactNode;
-}) {
+}: Readonly<{
+	children: React.ReactNode
+}>) {
 	return (
-		<html lang="en">
-			<head>
-				<link rel="icon" href="/favicon.jpeg" sizes="any" />
-				<meta
-					name="google-site-verification"
-					content="UANb6nADUuNFEMSNiGh6erLOKd_-W3GrKVcywvSmA8U"
-				/>
-			</head>
-			<body className={inter.className}>{children}</body>
+		<html
+			lang="en"
+			className={`${geist.variable} ${manrope.variable} antialiased`}
+			suppressHydrationWarning
+		>
+			<body className="font-sans">
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange={false}
+				>
+					{children}
+				</ThemeProvider>
+			</body>
 		</html>
-	);
+	)
 }

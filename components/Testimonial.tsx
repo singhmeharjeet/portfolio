@@ -3,9 +3,9 @@ export default function TestimonialCard({
 	name,
 	designation,
 }: {
-	description: string;
-	name: string;
-	designation: string;
+	description: string
+	name: string
+	designation: string
 }) {
 	return (
 		<div className="bg-secondary px-8 py-10 rounded-md">
@@ -14,11 +14,11 @@ export default function TestimonialCard({
 			</p>
 
 			<h6 className="font-semibold text-secondary-foreground text-md">
-				{name}{" "}
+				{name}{' '}
 				<span className="font-medium text-secondary-foreground/20 text-sm">
 					- {designation}
 				</span>
 			</h6>
 		</div>
-	);
+	)
 }

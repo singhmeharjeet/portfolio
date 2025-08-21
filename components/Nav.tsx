@@ -1,13 +1,13 @@
-import { LucideLinkedin, GithubIcon, InstagramIcon } from "lucide-react";
-import Link from "next/link";
-import React from "react";
-import { ModeToggle } from "./ModeToggle";
-import { Button } from "./ui/button";
+import { LucideLinkedin, GithubIcon, InstagramIcon } from 'lucide-react'
+import Link from 'next/link'
+import React from 'react'
+import { ModeToggle } from './ModeToggle'
+import { Button } from './ui/button'
 
 // @ts-ignore
-import Resume from "@/../public/resume.pdf";
+import Resume from '@/public/resume.pdf'
 
-type Props = {};
+type Props = {}
 
 const Nav = (props: Props) => {
 	return (
@@ -41,6 +41,6 @@ const Nav = (props: Props) => {
 				</Button>
 			</div>
 		</nav>
-	);
-};
-export default Nav;
+	)
+}
+export default Nav
