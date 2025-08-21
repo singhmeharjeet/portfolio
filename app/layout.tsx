@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Geist, Manrope } from 'next/font/google'
 import { ThemeProvider } from 'next-themes'
 import './globals.css'
+import { Toaster } from '@/components/ui/toaster'
 
 const geist = Geist({
 	subsets: ['latin'],
@@ -42,6 +43,7 @@ export default function RootLayout({
 					disableTransitionOnChange={false}
 				>
 					{children}
+					<Toaster />
 				</ThemeProvider>
 			</body>
 		</html>

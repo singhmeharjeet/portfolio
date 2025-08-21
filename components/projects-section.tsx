@@ -23,7 +23,11 @@ export function ProjectsSection() {
 	const [isMobile, setIsMobile] = useState(false)
 	const sectionRef = useRef<HTMLElement>(null)
 	const tabsRef = useRef<HTMLDivElement>(null)
-	const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, top: 0 })
+	const [indicatorStyle, setIndicatorStyle] = useState({
+		left: 0,
+		width: 0,
+		top: 0,
+	})
 
 	useEffect(() => {
 		const observer = new IntersectionObserver(
@@ -47,10 +51,10 @@ export function ProjectsSection() {
 		const checkIsMobile = () => {
 			setIsMobile(window.innerWidth < 768)
 		}
-		
+
 		checkIsMobile()
 		window.addEventListener('resize', checkIsMobile)
-		
+
 		return () => window.removeEventListener('resize', checkIsMobile)
 	}, [])
 
@@ -91,14 +95,15 @@ export function ProjectsSection() {
 					})) || []
 
 	// Apply mobile limit logic
-	const displayedProjects = isMobile && !showAllProjects 
-		? filteredProjects.slice(0, 4) 
-		: filteredProjects
+	const displayedProjects =
+		isMobile && !showAllProjects
+			? filteredProjects.slice(0, 4)
+			: filteredProjects
 
 	const hasMoreProjects = isMobile && filteredProjects.length > 4
 
 	// Use test projects if no real projects are available
-	const finalDisplayedProjects = displayedProjects 
+	const finalDisplayedProjects = displayedProjects
 
 	const toggleProjectExpansion = (projectTitle: string) => {
 		setExpandedProjects((prev) => {
@@ -134,7 +139,7 @@ export function ProjectsSection() {
 							className="relative flex flex-wrap justify-center gap-1 p-1 bg-muted rounded-lg max-w-full overflow-x-auto scrollbar-hide"
 						>
 							<Button
-								className="absolute ease-out transition-all duration-300 hover:bg-muted"
+								className="absolute ease-out transition-all duration-300 hover:bg-muted shadow-xs"
 								variant="outline"
 								style={{
 									left: `${indicatorStyle.left}px`,
@@ -150,10 +155,10 @@ export function ProjectsSection() {
 									onClick={() =>
 										setSelectedCategory(category)
 									}
-									className={`relative z-10 transition-all hover:bg-primary/0 duration-100 whitespace-nowrap flex-shrink-0 text-sm ${
+									className={`relative z-10 transition-all hover:bg-primary/0! hover:text-primary duration-100 whitespace-nowrap flex-shrink-0 text-sm ${
 										selectedCategory === category
-											? 'text-foreground shadow-sm'
-											: 'text-muted-foreground'
+											? 'shadow-xs'
+											: ''
 									}`}
 									onMouseEnter={(e) => {
 										if (selectedCategory !== category) {
@@ -192,7 +197,7 @@ export function ProjectsSection() {
 						{finalDisplayedProjects.map((project, index) => (
 							<Card
 								key={`${project.title}-${index}`}
-								className={`group hover:shadow-xl transition-all duration-300 hover:-translate-y-2`}
+								className={`group hover:shadow-sm transition-all duration-300 hover:-translate-y-2 rounded-none`}
 							>
 								<CardHeader className="pb-3">
 									<div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
@@ -305,7 +310,9 @@ export function ProjectsSection() {
 					{hasMoreProjects && (
 						<div className="flex justify-center mt-8">
 							<Button
-								onClick={() => setShowAllProjects(!showAllProjects)}
+								onClick={() =>
+									setShowAllProjects(!showAllProjects)
+								}
 								variant="outline"
 								className="px-6 py-2 text-sm font-medium transition-all duration-300 hover:bg-primary hover:text-primary-foreground"
 							>
@@ -317,7 +324,9 @@ export function ProjectsSection() {
 								) : (
 									<>
 										<ChevronDown className="w-4 h-4 mr-2" />
-										Show More ({filteredProjects.length - 4} more)
+										Show More ({filteredProjects.length -
+											4}{' '}
+										more)
 									</>
 								)}
 							</Button>

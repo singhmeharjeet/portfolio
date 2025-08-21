@@ -153,7 +153,7 @@ export function AboutSection() {
 									</div>
 								</div>
 
-								<ul className="flex w-full items-center justify-center gap-4 rounded px-4">
+								<ul className="flex w-full items-center justify-start gap-4 rounded px-4">
 									<Button
 										variant="outline"
 										size="icon"
