@@ -14,14 +14,16 @@ import {
 import { projects } from '@/data/portfolio-data'
 
 export function ProjectsSection() {
-	const [isVisible, setIsVisible] = useState(false)
+	const [isVisible, setIsVisible] = useState(true) // Always visible for debugging
 	const [selectedCategory, setSelectedCategory] = useState('All')
 	const [expandedProjects, setExpandedProjects] = useState<Set<string>>(
 		new Set()
 	)
+	const [showAllProjects, setShowAllProjects] = useState(false)
+	const [isMobile, setIsMobile] = useState(false)
 	const sectionRef = useRef<HTMLElement>(null)
 	const tabsRef = useRef<HTMLDivElement>(null)
-	const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 })
+	const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, top: 0 })
 
 	useEffect(() => {
 		const observer = new IntersectionObserver(
@@ -40,6 +42,23 @@ export function ProjectsSection() {
 		return () => observer.disconnect()
 	}, [])
 
+	// Check if mobile on mount and window resize
+	useEffect(() => {
+		const checkIsMobile = () => {
+			setIsMobile(window.innerWidth < 768)
+		}
+		
+		checkIsMobile()
+		window.addEventListener('resize', checkIsMobile)
+		
+		return () => window.removeEventListener('resize', checkIsMobile)
+	}, [])
+
+	// Reset show all when category changes
+	useEffect(() => {
+		setShowAllProjects(false)
+	}, [selectedCategory])
+
 	useEffect(() => {
 		if (tabsRef.current) {
 			const activeButton = tabsRef.current.querySelector(
@@ -48,6 +67,7 @@ export function ProjectsSection() {
 			if (activeButton) {
 				setIndicatorStyle({
 					left: activeButton.offsetLeft,
+					top: activeButton.offsetTop,
 					width: activeButton.offsetWidth,
 				})
 			}
@@ -69,6 +89,16 @@ export function ProjectsSection() {
 						...project,
 						category: selectedCategory,
 					})) || []
+
+	// Apply mobile limit logic
+	const displayedProjects = isMobile && !showAllProjects 
+		? filteredProjects.slice(0, 4) 
+		: filteredProjects
+
+	const hasMoreProjects = isMobile && filteredProjects.length > 4
+
+	// Use test projects if no real projects are available
+	const finalDisplayedProjects = displayedProjects 
 
 	const toggleProjectExpansion = (projectTitle: string) => {
 		setExpandedProjects((prev) => {
@@ -101,13 +131,14 @@ export function ProjectsSection() {
 					<div className="flex justify-center mb-12">
 						<div
 							ref={tabsRef}
-							className="relative flex flex-wrap justify-center gap-1 p-1 bg-muted rounded-lg"
+							className="relative flex flex-wrap justify-center gap-1 p-1 bg-muted rounded-lg max-w-full overflow-x-auto scrollbar-hide"
 						>
 							<Button
 								className="absolute ease-out transition-all duration-300 hover:bg-muted"
 								variant="outline"
 								style={{
 									left: `${indicatorStyle.left}px`,
+									top: `${indicatorStyle.top}px`,
 									width: `${indicatorStyle.width}px`,
 								}}
 							/>
@@ -119,7 +150,7 @@ export function ProjectsSection() {
 									onClick={() =>
 										setSelectedCategory(category)
 									}
-									className={`relative z-10 transition-all hover:bg-primary/0 duration-100 ${
+									className={`relative z-10 transition-all hover:bg-primary/0 duration-100 whitespace-nowrap flex-shrink-0 text-sm ${
 										selectedCategory === category
 											? 'text-foreground shadow-sm'
 											: 'text-muted-foreground'
@@ -129,6 +160,7 @@ export function ProjectsSection() {
 											const button = e.currentTarget
 											setIndicatorStyle({
 												left: button.offsetLeft,
+												top: button.offsetTop,
 												width: button.offsetWidth,
 											})
 										}
@@ -142,6 +174,7 @@ export function ProjectsSection() {
 											if (activeButton) {
 												setIndicatorStyle({
 													left: activeButton.offsetLeft,
+													top: activeButton.offsetTop,
 													width: activeButton.offsetWidth,
 												})
 											}
@@ -155,29 +188,29 @@ export function ProjectsSection() {
 					</div>
 
 					{/* Projects Grid */}
-					<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-						{filteredProjects.map((project, index) => (
+					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+						{finalDisplayedProjects.map((project, index) => (
 							<Card
 								key={`${project.title}-${index}`}
-								className={`group hover:shadow-xl transition-all duration-00 hover:-translate-y-2`}
+								className={`group hover:shadow-xl transition-all duration-300 hover:-translate-y-2`}
 							>
-								<CardHeader>
-									<div className="flex justify-between items-start mb-2">
-										<CardTitle className="text-xl group-hover:text-primary">
+								<CardHeader className="pb-3">
+									<div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
+										<CardTitle className="text-lg sm:text-xl group-hover:text-primary leading-tight">
 											{project.title}
 										</CardTitle>
 										{project.date && (
-											<div className="flex items-center text-sm text-muted-foreground">
-												<Calendar className="w-4 h-4 mr-1" />
+											<div className="flex items-center text-xs sm:text-sm text-muted-foreground flex-shrink-0">
+												<Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
 												{project.date}
 											</div>
 										)}
 									</div>
-									<p className="text-muted-foreground">
+									<p className="text-sm text-muted-foreground leading-relaxed">
 										{project.shortDesc}
 									</p>
 								</CardHeader>
-								<CardContent>
+								<CardContent className="pt-0">
 									<div className="space-y-4">
 										<div className="text-sm leading-relaxed">
 											{needsReadMore(project.longDesc) ? (
@@ -239,7 +272,7 @@ export function ProjectsSection() {
 														variant="outline"
 														size="sm"
 														asChild
-														className="hover:bg-primary hover:text-primary-foreground transition-colors bg-transparent"
+														className="hover:bg-primary hover:text-primary-foreground transition-colors bg-transparent text-xs sm:text-sm"
 													>
 														<a
 															href={link.url}
@@ -252,9 +285,9 @@ export function ProjectsSection() {
 															link.label.includes(
 																'GitHub'
 															) ? (
-																<Github className="w-4 h-4 mr-1" />
+																<Github className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
 															) : (
-																<ExternalLink className="w-4 h-4 mr-1" />
+																<ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
 															)}
 															{link.label}
 														</a>
@@ -267,6 +300,29 @@ export function ProjectsSection() {
 							</Card>
 						))}
 					</div>
+
+					{/* Show More Button for Mobile */}
+					{hasMoreProjects && (
+						<div className="flex justify-center mt-8">
+							<Button
+								onClick={() => setShowAllProjects(!showAllProjects)}
+								variant="outline"
+								className="px-6 py-2 text-sm font-medium transition-all duration-300 hover:bg-primary hover:text-primary-foreground"
+							>
+								{showAllProjects ? (
+									<>
+										<ChevronUp className="w-4 h-4 mr-2" />
+										Show Less
+									</>
+								) : (
+									<>
+										<ChevronDown className="w-4 h-4 mr-2" />
+										Show More ({filteredProjects.length - 4} more)
+									</>
+								)}
+							</Button>
+						</div>
+					)}
 				</div>
 			</div>
 		</section>
